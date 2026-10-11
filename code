@@ -1,0 +1,97 @@
+import java.util.*;
+public class SVS {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		 Scanner sc = new Scanner(System.in);
+
+	        String[] candidates = {"Candidate A", "Candidate B", "Candidate C"};
+	        int[] votes = new int[candidates.length];
+
+	        // Stores voter IDs to prevent duplicate voting
+	        HashSet<String> votedIDs = new HashSet<>();
+
+	        int choice;
+
+	        do {
+	            System.out.println("\n===== SIMPLE VOTING SYSTEM =====");
+	            System.out.println("1. Cast Vote");
+	            System.out.println("2. View Results");
+	            System.out.println("3. Exit");
+	            System.out.print("Enter your choice: ");
+
+	            choice = sc.nextInt();
+	            sc.nextLine();
+
+	            switch (choice) {
+
+	                case 1:
+	                    System.out.print("\nEnter Voter ID: ");
+	                    String voterID = sc.nextLine();
+
+	                    // Check if voter has already voted
+	                    if (votedIDs.contains(voterID)) {
+	                        System.out.println("You have already voted!");
+	                        break;
+	                    }
+
+	                    System.out.println("\nCandidates:");
+
+	                    for (int i = 0; i < candidates.length; i++) {
+	                        System.out.println((i + 1) + ". " + candidates[i]);
+	                    }
+
+	                    System.out.print("Choose candidate: ");
+	                    int vote = sc.nextInt();
+
+	                    if (vote >= 1 && vote <= candidates.length) {
+
+	                        votes[vote - 1]++;
+	                        votedIDs.add(voterID);
+
+	                        System.out.println("Vote successfully recorded!");
+
+	                    } else {
+	                        System.out.println("Invalid candidate!");
+	                    }
+
+	                    break;
+
+	                case 2:
+	                    System.out.println("\n===== VOTING RESULTS =====");
+
+	                    for (int i = 0; i < candidates.length; i++) {
+	                        System.out.println(
+	                            candidates[i] + " : " + votes[i] + " votes"
+	                        );
+	                    }
+
+	                    // Find winner
+	                    int max = votes[0];
+	                    int winner = 0;
+
+	                    for (int i = 1; i < votes.length; i++) {
+	                        if (votes[i] > max) {
+	                            max = votes[i];
+	                            winner = i;
+	                        }
+	                    }
+
+	                    System.out.println("\nLeading Candidate: "
+	                            + candidates[winner]);
+
+	                    break;
+
+	                case 3:
+	                    System.out.println("\nVoting System Closed.");
+	                    break;
+
+	                default:
+	                    System.out.println("Invalid choice!");
+	            }
+
+	        } while (choice != 3);
+	        sc.close();
+	}
+
+}
